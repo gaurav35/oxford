@@ -1,0 +1,162 @@
+<?php echo $this->doctype(); ?>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle($this->translate('Oxford English School :: Students'))->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php
+        echo $this->headMeta()
+                ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+                ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?php
+        echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                ->prependStylesheet($this->basePath() . '/css/bootstrap.css')
+                ->prependStylesheet($this->basePath() . '/css/bootstrap-responsive.css')
+                ->prependStylesheet($this->basePath() . '/css/theme.css')
+                 ?>
+
+        <!-- Scripts -->
+        <?php
+        echo $this->headScript()
+                ->prependFile($this->basePath() . '/js/bootstrap.min.js')
+                ->prependFile($this->basePath() . '/js/jquery.min.js')
+                ->prependFile($this->basePath() . '/js/custom.js')
+                ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+                ->prependFile($this->basePath() . '/js/html5shiv.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+                ->appendFile($this->basePath() . '/js/jquery.validate.js', 'text/javascript')
+               
+        ;
+        ?>
+        <style type="text/css">
+            #line-chart {
+                height:300px;
+                width:800px;
+                margin: 0px auto;
+                margin-top: 1em;
+            }
+            .brand { font-family: georgia, serif; }
+            .brand .first {
+                color: #ccc;
+                font-style: italic;
+            }
+            .brand .second {
+                color: #fff;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+       <!------------------------------------------------------------------------------------------------------------------------------->
+         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+             <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="<?php echo $this->url('home') ?>"><img src="<?php echo $this->basePath('img/xyz') ?>" />&nbsp;</a>
+                </div>
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Oxford English School') ?>&nbsp;&nbsp;</a>
+                </div>
+
+                <ul class="nav navbar-nav">
+                    <li role="presentation" ><a href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Home') ?></a>
+                    </li>
+                    <li role="presentation" ><a href="<?php echo $this->url('login') ?>"><?php echo $this->translate('My Account') ?></a>
+                    </li>
+                    <li role="presentation" ><a href="<?php echo $this->url('sms', array('action' => 'index'));?>"><?php echo $this->translate('Sms') ?></a>
+                    </li>
+                    <li role="presentation" class="active"><a href="<?php echo $this->url('student', array('action' => 'index')); ?>"><?php echo $this->translate('Student') ?></a>
+                    </li>
+                    <li role="presentation"  ><a href="<?php echo $this->url('standard', array('action' => 'index'));?>"><?php echo $this->translate('Class') ?></a>
+                    </li>
+                    <li class=" pull-right" role="presentation" ><a href="<?php echo $this->url('login', array('action' => 'logout')); ?>"><?php echo $this->translate('Logout') ?></a></li>
+                </ul>
+            </div>
+        </nav>
+       
+       <div style="margin:auto; background-color:#FFFFFF;">  
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="brand" href=""><span class="first"> Oxford English School </span></a><a class="brand" href="<?php echo $this->url('login', array('action' => 'logout'));
+        ?>"><span class="second">Logout</span></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="col-md-2">
+                        <div class="sidebar-nav">
+                            <div class="nav-header" data-toggle="collapse" data-target="#dashboard-menu"><i class="icon-dashboard"></i>Dashboard</div>
+                            <ul id="dashboard-menu" class="nav nav-list collapse in">
+                                <li><a href="">Home</a></li>
+
+                            </ul>
+                            <div class="nav-header" data-toggle="collapse" data-target="#accounts-menu"><i class="icon-briefcase"></i>Manage School<span class="label label-info">+10</span></div>
+                            <ul id="accounts-menu" class="nav nav-list collapse in">
+                                <li><a href="javascript:void(0);">My Account</a></li> 
+                                <li><a href="javascript:void(0);">Change Password</a></li>
+                                <li>&nbsp;</li>
+                                <li><a href="<?php echo $this->url('standard', array('action' => 'add'));
+        ?>">Add Class</a></li>
+                                <li><a href="<?php echo $this->url('student', array('action' => 'add')); ?>">Add Student</a></li>
+                                <li><a href="<?php echo $this->url('sms', array('action' => 'add'));
+        ?>">Add SMS Template</a></li>
+                                <li>&nbsp;</li>
+                                <li><a href="<?php echo $this->url('standard', array('action' => 'index'));
+        ?>">All Classes</a></li>
+                                <li><a href="<?php echo $this->url('student', array('action' => 'index')); ?>">All Students</a></li>
+                                <li><a href="<?php echo $this->url('student', array('action' => 'studentclasswise'));
+        ?>">All Students Class-wise</a></li>
+                                <li><a href="<?php echo $this->url('sms', array('action' => 'index'));
+        ?>">All SMS Templates</a></li>
+                                <li>&nbsp;</li>
+                                <li><a href="<?php echo $this->url('sms', array('action' => 'smsbalance'));
+        ?>">SMS Acount Balance</a></li>
+                                <li><a href="smsbalance">SMS Report</a></li>
+                                <li><a href="<?php echo $this->url('sms', array('action' => 'sendsms'));
+        ?>">Send SMS Page</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-md-10">
+                        <h1 class="page-title" style="color:#000000;"><?php echo $this->heading; ?> </h1>
+                        
+                        <div id="message" class="message">
+
+                            <?php
+                            if ($this->flashMessages) {
+                                foreach ($this->flashMessages as $context => $messages) {
+                                    echo '<div class="alert alert-dismissable alert-' . $context . '"><ul>';
+                                    foreach ($messages as $message) {
+                                        echo '<li>' . $message . '</li>';
+                                    }
+                                    echo '</ul></div>';
+                                }
+                            }
+                            ?>
+                        </div>
+                        <div class="well" ng-app="">
+                            <?php echo $this->content; ?>
+                        </div>
+                        <font face="Arial" style="font-size: 8pt">
+
+
+                        </font>
+                    </div>
+                    <font face="Arial" style="font-size: 8pt">
+                    </font></div><font face="Arial" style="font-size: 8pt">
+                </font></div><font face="Arial" style="font-size: 8pt">
+
+
+            </font></div>        
+        <footer>
+            <p>&copy; 2005 - <?php echo date('Y') ?> by Zend Technologies Ltd. <?php echo $this->translate('All rights reserved.') ?></p>
+        </footer>
+        <!-- /container -->
+        <?php echo $this->inlineScript() ?>
+    </body>
+</html>

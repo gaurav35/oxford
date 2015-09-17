@@ -1,0 +1,46 @@
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#id</th>
+                    <th>Template Name</th>
+                    <th>Template</th>
+                    <th>Update Date</th>
+                    <th style="width: 26px;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+              <?php if(count($this->paginator)):
+            foreach ($this->paginator as $object):?>
+                    <tr>
+                        <td><?php echo $this->escapeHtml($object->id); ?></td>
+                        <td><?php echo $this->escapeHtml($object->sms_title); ?></td>
+                        <td><?php echo $this->escapeHtml($object->sms_temp); ?></td>
+                        <td><?php echo $this->escapeHtml($object->sms_update_date); ?></td>
+                        <td>
+                            <a href="<?php echo $this->url('sms', array('action' => 'edit', 'id' => $object->id));?>">Edit</a>
+                            <a href="<?php echo $this->url('sms', array('action' => 'delete', 'id' => $object->id));?>">Delete</a>
+                        </td>
+                    </tr>
+                <?php endforeach; 
+                     else:?>
+                <tr>
+                    <td colspan="10"><center><a href="<?php echo $this->url('student', array('action' => 'add')); ?>" style="text-decoration:none;"><?php echo $this->translate('No Records available!') ?></a></center></td>
+                </tr>
+            <?php endif;?>
+                                    <tr><td colspan="10"><?php
+ // add at the end of the file after the table
+          echo $this->paginationControl(
+     // the paginator object
+     $this->paginator,
+     // the scrolling style
+     'sliding',
+     // the partial to use to render the control
+     array('partial/paginator.phtml', 'Sms'),
+     // the route to link to when a user clicks a control link
+     array(
+         'route' => 'sms'
+     )
+ );
+ ?></td></tr>
+            </tbody>
+        </table>

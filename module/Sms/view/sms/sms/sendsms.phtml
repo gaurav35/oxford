@@ -1,0 +1,79 @@
+     <?php
+     $title = 'Send Sms';
+     $this->headTitle($title);
+     $form = $this->form;
+     $form->setAttribute('action', $this->url(
+    'sms',
+    array(
+        'action' => 'sendsms',
+    )
+));
+     $form->prepare();?>
+ <p><b><font size="4">1. Select Template</font></b></p>
+      <div class="well"> <?php
+echo $this->form()->openTag($form);?>
+         
+<table class="table">
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>Template Name</th>
+                    <th>Template</th>
+                    <th>Update Date</th>
+                    <th style="width: 26px;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+               <?php foreach ($sms as $template) :?>
+                    <tr>
+                        <td><?php echo $this->formRow($form->get('sms_id')->setValueOptions(array($this->escapeHtml($template->id) => '')));?></td>
+                        <td><?php echo $this->escapeHtml($template->sms_title); ?></td>
+                        <td><?php echo $this->escapeHtml($template->sms_temp); ?></td>
+                        <td><?php echo $this->escapeHtml($template->sms_update_date); ?></td>
+                        <td>
+                            <a href="<?php echo $this->url('sms', array('action' => 'edit', 'id' => $template->id));?>">Edit</a>
+                            <a href="<?php echo $this->url('sms', array('action' => 'delete', 'id' => $template->id));?>">Delete</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+ 
+
+
+<p><font size="4"><b>2. Select Students</b></font><font size="2"> (Click On <b>+</b> to display students)</font></p>
+
+<ul id="tree">
+    <?php foreach ($standard as $key => $value) : $student = $form->getAllStudent($value->id);?>
+    <li>
+        <input type="checkbox" class="classname" name="classname" id="<?php echo $value->id; ?>" value="<?php echo $value->id; ?>" />&nbsp;&nbsp;<b><?php echo $value->class; ?></b>
+           <ul>
+             <?php foreach($student as $obj):?>
+                <li>&nbsp;&nbsp;<input type="checkbox" name="selected_mobiles[]" class="<?php echo $obj->id; ?>" value="<?php echo $obj->parent_mobile_1 . ',' . $obj->parent_mobile_2;?>" ><?php echo $obj->student_name;?></li>
+             <?php endforeach;?>
+           </ul>
+    </li>
+    <?php endforeach;?>
+</ul>
+
+       <?php echo $this->formSubmit($form->get('submit'));
+            echo $this->form()->closeTag();
+        ?>
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('.classname').click(function(event) {  //on click
+        //console.log($(this).parent().children('ul').children('li').length);
+        if(this.checked) { // check select status
+            $(this).parent().children('ul').find('input').each(function() { //loop through each checkbox
+                this.checked = true;  //select all checkboxes with class "checkbox1"              
+            });
+        }else{
+           $(this).parent().children('ul').find('input').each(function() { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"                      
+            });        
+        }
+    });
+    $('#tree').abixTreeList();
+});
+</script>

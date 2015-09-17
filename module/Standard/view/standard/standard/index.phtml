@@ -1,0 +1,40 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">Name</div>
+        <div class="col-md-4">Update Date</div>
+        <div class="col-md-1">Edit</div>
+        <div class="col-md-1">Delete</div>
+    </div>
+
+
+          <?php if(count($this->paginator)):
+            foreach ($this->paginator as $object):?>
+<div class="col-md-6"><?php echo $object->class; ?></div>
+        <div class="col-md-4"><?php echo $object->standard_update_date; ?></div>
+        <div class="col-md-1"><a href="<?php echo $this->url('standard', array('action' => 'edit', 'id' => $object->id)); ?>" style="text-decoration:none;">Edit</a></div>
+        <div class="col-md-1"><a href="<?php echo $this->url('standard', array('action' => 'delete', 'id' => $object->id)); ?>" onclick="return confirm( & #39; Are you sure you want to delete this class? & #39; );" style="text-decoration:none;">Delete</a></div>
+           
+        <?php endforeach; 
+              else:?>
+                <div class="col-md-12">
+                  <center><a href="<?php echo $this->url('student', array('action' => 'add')); ?>" style="text-decoration:none;"><?php echo $this->translate('No Records available!') ?></a></center></div>
+            <?php endif;?>
+        <div class="row">
+           <div class="col-md-12">
+                  <center><?php
+ // add at the end of the file after the table
+          echo $this->paginationControl(
+     // the paginator object
+     $this->paginator,
+     // the scrolling style
+     'sliding',
+     // the partial to use to render the control
+     array('partial/paginator.phtml', 'Standard'),
+     // the route to link to when a user clicks a control link
+     array(
+         'route' => 'standard'
+     )
+ );
+          ?></center></div></div></div>
+    </tbody>
+</table>

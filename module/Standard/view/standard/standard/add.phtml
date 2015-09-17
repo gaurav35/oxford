@@ -1,0 +1,36 @@
+<?php
+$form = $this->form;
+//echo get_class($form);die;
+$form->setAttribute('action', $this->url('standard', array('action' => 'add')));
+$form->setAttribute('class', 'form-horizontal');
+$form->prepare();
+
+echo $this->form()->openTag($form);
+?>
+<div class="form-group">
+    <label for="form-class" class="col-sm-2 control-label"><?php echo $this->translate('Class Name') ?></label>
+<?php
+         echo $this->formHidden($form->get('id'));?>
+    <div class="col-sm-4">
+<?php echo $this->formRow($form->get('class'));?>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+<?php echo $this->formSubmit($form->get('submit'));?>
+    </div>
+</div>
+<?php echo $this->form()->closeTag();
+?>
+<script type='text/javascript'>
+ $("#standard").validate({
+        rules: {
+            class: {
+                required: true,
+            }
+        },
+        messages: {
+            class: "Insert Class Name."
+        }
+    });
+</script>

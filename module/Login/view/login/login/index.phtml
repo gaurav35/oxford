@@ -1,0 +1,51 @@
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('login', array('action' => 'index',)));
+$form->setAttribute('class', 'form-inline');
+$form->setAttribute('data-ng-controller','myCtrl');
+$form->prepare();
+?>
+
+<div class="container-fluid">
+    <?php echo $this->form()->openTag($form); ?>
+    <div class="row">
+                    <?php echo $this->translate('SCHOOL LOGIN') ?>
+    </div>
+         <div class="row">
+             
+                   <div class="col-md-12 form-group"><?php echo $this->formRow($form->get('user_name')); ?></div>
+                    <span style="color:red" ng-show="login.user_name.$dirty && login.user_name.$invalid">
+                    <span ng-show="login.user_name.$error.required">Username is required.</span>
+  </span>
+         </div>
+
+    <div class="row">
+                    
+                     <div class="col-md-12 form-group"><?php echo $this->formRow($form->get('password')); ?></div>
+                      <span style="color:red" ng-show="login.password.$dirty && login.password.$invalid">
+                    <span ng-show="login.password.$error.required">Password is required.</span>
+  </span>
+    </div>
+                   
+ <div class="row">
+                     <div class="col-md-1 form-group"><?php echo $this->formRow($form->get('rememberme')); ?></div>
+                     <div class="col-md-11"><label for="rememberme"><?php echo $this->translate('Remember Me') ?></div>
+</div>
+                <div class="row">
+                    <?php echo $this->formSubmit($form->get('submit')); ?>
+                </div>
+    <?php echo $this->form()->closeTag(); ?>
+</div>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope) {
+        console.log(login.user_name.$invalid);
+                $scope.validate = function(){
+                    alert('hello');
+                }
+     });
+</script>
+
+
+

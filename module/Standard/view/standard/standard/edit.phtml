@@ -1,0 +1,35 @@
+<?php
+// module/Album/view/album/album/edit.phtml:
+
+$title = 'Edit Class';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url(
+    'standard',
+    array(
+        'action' => 'edit',
+        'id'     => $this->id,
+    )
+));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+echo $this->formRow($form->get('class'));
+echo $this->formSubmit($form->get('submit'));
+echo $this->form()->closeTag();
+?>
+<script type='text/javascript'>
+
+    var validator = new FormValidator('standard', [{
+            name: 'class',
+            display: 'required',
+            rules: 'required'
+        }]
+    );
+
+</script>

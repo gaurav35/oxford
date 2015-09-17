@@ -1,0 +1,59 @@
+<?php
+// module/Album/view/album/album/edit.phtml:
+$title = 'Edit Sms Template';
+$this->headTitle($title);
+?>
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url(
+    'sms',
+    array(
+        'action' => 'edit',
+        'id'     => $this->id,
+    )
+));
+$form->setAttribute('class', 'form-horizontal');
+$form->prepare();
+echo $this->form()->openTag($form);?>
+<div class="form-group">
+    <label for="form-class" class="col-sm-2 control-label"><?php echo $this->translate('Template Title') ?></label>
+<?php
+         echo $this->formHidden($form->get('id'));?>
+    <div class="col-sm-4">
+<?php echo $this->formRow($form->get('sms_title'));?>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="form-class" class="col-sm-2 control-label"><?php echo $this->translate('Template') ?></label>
+<?php
+         echo $this->formHidden($form->get('id'));?>
+    <div class="col-sm-4">
+<?php echo $this->formRow($form->get('sms_temp'));?>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+<?php echo $this->formSubmit($form->get('submit'));?>
+    </div>
+</div>
+<?php
+echo $this->form()->closeTag();
+?>
+<script type='text/javascript'>
+    $("#sms").validate({
+        rules: {
+            sms_title: {
+                required: true,
+            },
+            sms_temp: {
+                required: true,
+            },
+            messages: {
+                sms_title: "Please specify title.",
+                sms_temp: "Please specify template."
+             }
+        }
+    });
+</script>

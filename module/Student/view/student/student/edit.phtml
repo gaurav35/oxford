@@ -1,0 +1,56 @@
+<?php
+// module/Album/view/album/album/edit.phtml:
+
+$title = 'Edit Student';
+$this->headTitle($title);
+
+$form = $this->form;
+$form->setAttribute('action', $this->url(
+    'student',
+    array(
+        'action' => 'edit',
+        'id'     => $this->id,
+    )
+));
+$form->prepare();
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+echo $this->formRow($form->get('class'));
+echo $this->formRow($form->get('student_name'));
+echo $this->formRow($form->get('father_name'));
+echo $this->formRow($form->get('mother_name'));
+echo $this->formRow($form->get('admission_no'));
+echo $this->formRow($form->get('roll_no'));
+echo $this->formRow($form->get('parent_mobile_1'));
+echo $this->formRow($form->get('parent_mobile_2'));
+echo $this->formSubmit($form->get('submit'));
+echo $this->form()->closeTag();
+?>
+<script type='text/javascript'>
+    $("#student").validate({
+        rules: {
+            class: {
+                required: true,
+            },
+            student_name: {
+                required: true,
+            },
+            // compound rule
+            father_name: "required",
+            admission_no: {
+                required: true,
+                number: true
+            },
+            roll_no: {
+                required: true,
+                number: true
+            },
+            parent_mobile_1: "required",
+        },
+        messages: {
+            student_name: "Please specify student name.",
+            father_name: "Please specify father name.",
+            class: "Select any one Class."
+        }
+    });
+</script>

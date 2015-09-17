@@ -1,0 +1,59 @@
+<?php
+$title = 'Add new Student';
+$this->headTitle($title);
+?>
+     <table class="table table-bordered table-striped">
+    <thead>
+   
+        <tr>
+            <th>Roll</th>
+            <th>Adm.No.</th>
+            <th>Student&nbsp;Name</th>
+            <th>Mobile1</th>
+            <th>Mobile2</th>
+            <th>Father&nbsp;Name</th>
+            <th>Mother&nbsp;Name</th>
+            <th>Class</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+            <?php 
+            if(count($this->paginator)):
+            foreach ($this->paginator as $object)://print_r($object);die;?>
+            <tr>
+                <td><a href=""><?php echo $object->roll_no; ?></a></td>
+                <td><a href="<?php ?>"><?php echo $object->admission_no; ?></a></td>
+                <td><a href="<?php ?>"><?php echo $object->student_name; ?></a></td>
+                <td><a href="<?php ?>"><?php echo $object->parent_mobile_1; ?></a></td>
+                <td><a href="<?php ?>"><?php echo $object->parent_mobile_2; ?></a></td>
+                <td><a href="<?php ?>"><?php echo $object->father_name; ?></a></td>
+                <td><a href="<?php ?>"><?php echo $object->mother_name; ?></a></td>
+                <td><a href="<?php ?>"><?php echo $object->class; ?></a></td>
+                <td><a href="<?php echo $this->url('student', array('action' => 'edit', 'id' => $object->id)); ?>" style="text-decoration:none;">Edit</a></td>
+                <td><a href="<?php echo $this->url('student', array('action' => 'delete', 'id' => $object->id)); ?>" onclick="return confirm( & #39; Are you sure you want to delete this class? & #39; );" style="text-decoration:none;">Delete</a></td>                     
+            </tr>
+            <?php endforeach; 
+            else:?>
+                <tr>
+                    <td colspan="10"><center><a href="<?php echo $this->url('student', array('action' => 'add')); ?>" style="text-decoration:none;"><?php echo $this->translate('No Records available!') ?></a></center></td>
+                </tr>
+            <?php endif;
+            ?>
+                <tr><td colspan="10"><?php
+ // add at the end of the file after the table
+          echo $this->paginationControl(
+     // the paginator object
+     $this->paginator,
+     // the scrolling style
+     'sliding',
+     // the partial to use to render the control
+     array('partial/paginator.phtml', 'Student'),
+     // the route to link to when a user clicks a control link
+     array(
+         'route' => 'student'
+     )
+ );
+ ?></td></tr>
+        </tbody>
+    </table>

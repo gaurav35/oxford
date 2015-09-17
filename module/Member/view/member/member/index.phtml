@@ -1,0 +1,143 @@
+        <form action="" name="myForm" method="post" id="form1">
+            <table width="50%" class="table" bgcolor="#ffffff"><thead><tr><th><font face="Arial" size="3"><b>1. Select SMS Template<?php echo $name; ?></b></font></th></tr> </thead></table>
+
+            <table class="table table-bordered table-striped" style="margin-top:-20px;" width="50%" bgcolor="#ffffff" align="center">
+                <thead>
+                    <tr>
+                        <th>Select</th>
+                        <th>Name</th>
+                        <th>Template</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <?php //print_r($sms_template);?>
+                <tbody>
+                    
+                    
+                 <?php foreach ($sms as $template) :?>
+                    <tr>
+                        <td align="left">
+                        <input type="radio" name="sms_id_t" value="<?php echo $this->escapeHtml($template->id); ?>" required=""></td>
+                        <td><span style="font-size: 9pt; font-family: Arial"><?php echo $this->escapeHtml($template->sms_title); ?></span></td>
+                        <td><span style="font-size: 9pt; font-family: Arial"><?php echo $this->escapeHtml($template->sms_temp); ?></span></td>
+                      
+                        <td><?php echo $this->escapeHtml($template->sms_update_date); ?></td>
+                        <td>
+                            <a href="<?php echo $this->url('sms', array('action' => 'edit', 'id' => $template->id));?>">Edit</a>
+                            <?php /* <a href="<?php echo $this->url('sms', array('action' => 'delete', 'id' => $template->id));?>">Delete</a> */ ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>   
+                     </tbody></table>
+
+            <script type="text/javascript">
+                function checkall(el) {
+                    var ip = document.getElementsByTagName('input'), i = ip.length - 1;
+                    for (i; i > -1; --i) {
+                        if (ip[i].type && ip[i].type.toLowerCase() === 'checkbox') {
+                            ip[i].checked = el.checked;
+                        }
+                    }
+                }
+            </script>
+            <script type="text/javascript">
+                function ajaxFunction()
+                {
+
+                    //document.writeln(val)
+                    var httpxml;
+                    try
+                    {
+                        // Firefox, Opera 8.0+, Safari
+                        httpxml = new XMLHttpRequest();
+                    }
+                    catch (e)
+                    {
+                        // Internet Explorer
+                        try
+                        {
+                            httpxml = new ActiveXObject("Msxml2.XMLHTTP");
+                        }
+                        catch (e)
+                        {
+                            try
+                            {
+                                httpxml = new ActiveXObject("Microsoft.XMLHTTP");
+                            }
+                            catch (e)
+                            {
+                                alert("Your browser does not support AJAX!");
+                                return false;
+                            }
+                        }
+                    }
+
+                    function stateChanged() {
+                        if (httpxml.readyState == 4) {
+
+                            var myObject = eval('(' + httpxml.responseText + ')');
+                             //var myObject = httpxml.responseText;
+                            //document.getElementById("display").innerHTML=myObject;
+                            var msg = myObject;
+                           // console.log(msg);
+                            if (msg.length > 0) {
+                                document.getElementById("msg").innerHTML = msg;
+                            }
+                            else {
+                                document.getElementById("msg").style.display = 'none';
+                            }
+
+                            var str = "<table width='50%' class='table' bgcolor='#ffffff' align='center'><thead><tr><th><font face='Arial' size='3'><p>&nbsp;</p><b>3. Select Parents</b></font></th></tr></thead></table><table border='1' BORDERCOLOR='#D3D3D3' style='margin-top:-20px;' width='50%' class='table' bgcolor='#ffffff' align='center'><thead><tr><th><input type='checkbox' id='selectall1' onClick='checkall(this);'/></th><th><font face='Arial' size='2'><b>Student Name</b></font></th><th><font face='Arial' size='2'><b>Roll No.</b></font></th><th><font face='Arial' size='2'><b>Class</b></font></th><th><font face='Arial' size='2'><b>Fathers Name</b></font></th><th><font face='Arial' size='2'><b>Parent Mob1,Mob2</b></font></th></tr></thead>";
+                            var color = "#f1f1f1";
+                            for (i = 0; i < msg.length; i++)
+                            {
+                                if ((i % 2) == 0) {
+                                    color = "#ffffff";
+                                }
+                                else {
+                                    color = "#f1f1f1";
+                                }
+                                str = str + "<tr bgcolor=" + color + "><td><input type='checkbox' value='" + myObject[i].parent_mobile_1 + "' class='case' name='st_id["+ myObject[i].id +"]'></td><td>" + myObject[i].student_name + "</td><td>" + myObject[i].roll_no + "</td><td>" + myObject[i].class + "</td><td>" + myObject[i].father_name + "</td><td>" + myObject[i].parent_mobile_1 + ',' + myObject[i].parent_mobile_2 + "</td></tr>"
+                            }
+                            if (msg.length == 0)
+                            str = str + "<tr bgcolor=" + color + "><td colspan='7'><center>No Records Found.</center></td></tr>"
+                            str = str + "</table>";
+                            document.getElementById("display").innerHTML = str;
+                        }
+                    }
+                    var class_id = document.myForm.class_id.value;
+                    var url = "<?php echo $this->url('student', array('action' => 'studentclasswiseajax')); ?>";
+                    url = url + "?class=" + class_id;
+
+                    //url = url + "&kid=" + Math.random();
+                    //alert(url)
+                    httpxml.onreadystatechange = stateChanged;
+                    httpxml.open("GET", url, true);
+                    httpxml.send(null);
+                    // document.getElementById("display").innerHTML="Please Wait....";
+                    document.getElementById("msg").style.background = '#f1f1f1';
+                    document.getElementById("msg").innerHTML = "Please Wait ... ";
+                    document.getElementById("msg").style.display = 'inline';
+                }
+
+            </script>
+
+           
+
+             <div class="row">
+                 <div class="col-lg-2">
+                 <font face="Arial" size="3">&nbsp; <b>2. Select Class</b></font></p>
+                                <select name="class_id" class="form-control"onchange="ajaxFunction();">
+                                    <option value="0">--Select Class--</option>
+                                    <?php foreach ($standard as $class): ?>
+                                        <option value="<?php echo $class->id ?>"><?php echo $class->class ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                 </div>
+             </div>
+             <div id="msg" style="position: absolute; z-index: 1; left: 1100px; top: 0px; display: none; background: rgb(241, 241, 241);">Please Wait ... </div>
+
+                                <div id="display"><table width="50%" class="table" bgcolor="#ffffff" align="center"><thead><tr><th><font face="Arial" size="3"><p>&nbsp;</p><b>3. Select Parents</b></font></th></tr></thead></table><table border="1" bordercolor="#D3D3D3" style="margin-top:-20px;" width="50%" class="table" bgcolor="#ffffff" align="center"><thead><tr><th><input type="checkbox" id="selectall1" onclick="checkall(this);"></th><th><font face="Arial" size="2"><b>Student Name</b></font></th><th><font face="Arial" size="2"><b>Roll No.</b></font></th><th><font face="Arial" size="2"><b>Class</b></font></th><th><font face="Arial" size="2"><b>Fathers Name</b></font></th><th><font face="Arial" size="2"><b>Parent Mob1,Mob2</b></font></th></tr></thead><tbody><td bgcolor='#f1f1f1' colspan='7'><center>No Records Found.</center></td></tbody></table></div>
+                                <div class="row">
+                                    <div class="col-lg-2"><input class="submit" type="submit" name="send" value="SEND"></div></div>
+            </form>

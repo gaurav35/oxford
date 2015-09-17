@@ -1,0 +1,64 @@
+<?php 
+$form = $this->form;
+$form->setAttribute('action', $this->url(
+    'student',
+    array(
+        'action' => 'studentxls',
+    )
+));
+$form->setAttribute('class', 'form-horizontal');
+$form->prepare();
+
+?>
+    <?php echo $this->form()->openTag($form);?>
+    
+    <div class="form-group">
+            <label for="form_class" class="col-sm-2 control-label"><?php echo $this->translate('Class Name') ?></label>
+            <div class="col-sm-2">
+            <?php echo $this->formRow($form->get('class')); ?>
+            </div>
+        </div>
+    
+    <div class="form-group">
+            <label for="form_class" class="col-sm-2 control-label"><?php echo $this->translate('File Upload') ?></label>
+            <div class="col-sm-7">
+            <?php echo $this->formRow($form->get('fileupload'));?>
+            </div>
+        </div>
+    
+    <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+<?php echo $this->formRow($form->get('reset'));?>&nbsp;<?php echo $this->formSubmit($form->get('submit')->setAttribute('value', 'Upload Now'));?>
+            </div>
+        </div>
+
+<?php echo $this->form()->closeTag();?>
+
+<div class="row">
+<div class="form-group">
+            <label for="form_class" class="col-sm-2 control-label"></label>
+            <div class="col-sm-7">
+            <a href = "<?php echo $this->url('student', array('action' => 'download'))?>"><?php echo $this->formRow($form->get('download'));?></a>
+            </div>
+        </div>
+</div>
+
+<script type='text/javascript'>
+    $.validator.addMethod("valueNotEquals",function(value,element,arg){return arg!=value;},"Value must not equal arg.");
+    $("#student").validate({
+        rules: {
+            class: {
+                valueNotEquals:"0",
+            },
+        },
+        messages: {
+            class: {valueNotEquals:"Select any one Class."}
+        }
+    });
+</script>
+
+
+
+
+
+
