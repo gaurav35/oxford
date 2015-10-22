@@ -1,14 +1,15 @@
 <?php
+
 echo $this->headMeta()
         ->appendName('viewport', 'width=device-width, , initial-scale=1, maximum-scale=1')
         ->appendHttpEquiv('X-UA-Compatible', 'IE=edge');
 echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
-       // ->prependStylesheet($this->basePath() . '/css/bootstrap.css')
-       // ->prependStylesheet($this->basePath() . '/css/bootstrap-responsive.css')
-        ->prependStylesheet($this->basePath() . '/css/style.css')
-        ->prependStylesheet('http://fonts.googleapis.com/css?family=Montserrat+Alternates');
-        //->prependStylesheet($this->basePath() . '/css/swipebox.css');
+        ->appendStylesheet($this->basePath() . '/css/style.css','screen',true)
+        ->prependStylesheet('http://fonts.googleapis.com/css?family=Montserrat+Alternates')
+        ->prependStylesheet($this->basePath() . '/css/bootstrap.css')
+        ->prependStylesheet($this->basePath() . '/css/bootstrap-responsive.css');
+        
 echo $this->headScript()
         ->prependFile($this->basePath() . '/js/bootstrap.min.js')
         ->prependFile($this->basePath() . '/js/jquery.min.js')
-        ->prependFile($this->basePath() . '/js/angular.min.js');   
+        ->prependFile($this->basePath() . '/js/angular.min.js');

@@ -8,6 +8,7 @@ return array(
         'Sms',
         'Standard',
         'Student',
+        'About',
     ),
 
     // These are various options for the listeners attached to the ModuleManager

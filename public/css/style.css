@@ -124,6 +124,15 @@ body{
 .logo{
 	float:left;
 }
+
+.logo-text{
+        float:left;
+	width:50%;
+	padding-top:0.8%;
+        font-family: 'Montserrat Alternates', sans-serif;
+	font-size:3em;
+	color:#FA8D03;
+}
 .search {
 	float:right;
 	width:28%;

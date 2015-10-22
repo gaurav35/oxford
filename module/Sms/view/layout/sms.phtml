@@ -1,52 +1,9 @@
 <?php echo $this->doctype(); ?>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
         <?php echo $this->headTitle($this->translate('Oxford English School :: Students'))->setSeparator(' - ')->setAutoEscape(false) ?>
 
-        <?php
-        echo $this->headMeta()
-                ->appendName('viewport', 'width=device-width, initial-scale=1.0')
-                ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
-        ?>
-
-        <!-- Le styles -->
-        <?php
-        echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
-                ->prependStylesheet($this->basePath() . '/css/bootstrap.css')
-                ->prependStylesheet($this->basePath() . '/css/bootstrap-responsive.css')
-                ->prependStylesheet($this->basePath() . '/css/theme.css')
-                 ?>
-
-        <!-- Scripts -->
-        <?php
-        echo $this->headScript()
-                ->prependFile($this->basePath() . '/js/bootstrap.min.js')
-                ->prependFile($this->basePath() . '/js/jquery.min.js')
-                ->prependFile($this->basePath() . '/js/custom.js')
-                ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
-                ->prependFile($this->basePath() . '/js/html5shiv.js', 'text/javascript', array('conditional' => 'lt IE 9',))
-                ->appendFile($this->basePath() . '/js/jquery.validate.js', 'text/javascript')
-               
-        ;
-        ?>
-        <style type="text/css">
-            #line-chart {
-                height:300px;
-                width:800px;
-                margin: 0px auto;
-                margin-top: 1em;
-            }
-            .brand { font-family: georgia, serif; }
-            .brand .first {
-                color: #ccc;
-                font-style: italic;
-            }
-            .brand .second {
-                color: #fff;
-                font-weight: bold;
-            }
-        </style>
+        <?php echo $this->render('layout/header.phtml') ?>
     </head>
     <body>
        <!------------------------------------------------------------------------------------------------------------------------------->
@@ -64,9 +21,9 @@
                     </li>
                     <li role="presentation" ><a href="<?php echo $this->url('login') ?>"><?php echo $this->translate('My Account') ?></a>
                     </li>
-                    <li role="presentation" ><a href="<?php echo $this->url('sms', array('action' => 'index'));?>"><?php echo $this->translate('Sms') ?></a>
+                    <li role="presentation" class="active"><a href="<?php echo $this->url('sms', array('action' => 'index'));?>"><?php echo $this->translate('Sms') ?></a>
                     </li>
-                    <li role="presentation" class="active"><a href="<?php echo $this->url('student', array('action' => 'index')); ?>"><?php echo $this->translate('Student') ?></a>
+                    <li role="presentation" ><a href="<?php echo $this->url('student', array('action' => 'index')); ?>"><?php echo $this->translate('Student') ?></a>
                     </li>
                     <li role="presentation"  ><a href="<?php echo $this->url('standard', array('action' => 'index'));?>"><?php echo $this->translate('Class') ?></a>
                     </li>
