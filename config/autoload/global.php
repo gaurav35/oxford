@@ -32,6 +32,9 @@ return array(
         'Student' => 'layout/student.phtml',
         'Standard' => 'layout/standard.phtml',
         'Sms' => 'layout/sms.phtml',
-        'About' => 'layout/about.phtml'
+        'About' => 'layout/about.phtml',
+        'Events' => 'layout/events.phtml',
+        'Contact' => 'layout/contact.phtml',
+        
    ),
 );

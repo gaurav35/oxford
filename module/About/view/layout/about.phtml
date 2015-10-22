@@ -1,7 +1,7 @@
 <?php echo $this->doctype(); ?>
 <html lang="en">
     <head>
-        <?php echo $this->headTitle($this->translate('Oxford English School'))->setSeparator(' - ')->setAutoEscape(false) ?>
+        <?php echo $this->headTitle($this->translate('B.L.K MEMORIAL OXFORD ENGLISH SCHOOL'))->setSeparator(' - ')->setAutoEscape(false) ?>
         <?php echo $this->render('layout/head.phtml') ?>
     </head>
     <body>
@@ -13,9 +13,9 @@
                             <div class="menu">
                                 <ul>
                                     <li><a href="<?php echo $this->url('home');?>">Home</a></li>
-                                    <li><a href="">Events</a></li>
+                                    <li><a href="<?php echo $this->url('events');?>">Events</a></li>
                                     <li class="active"><a href="<?php echo $this->url('about');?>">About Us</a></li>
-                                    <li><a href="">Contact Us</a></li>
+                                    <li><a href="<?php echo $this->url('contact');?>">Contact Us</a></li>
 <!--                                    <li><a href="<?php //echo $this->url('login') ?>">Login</a></li>
                                     <li><a href="">Contact</a></li>-->
                                     <div class="clear"></div>

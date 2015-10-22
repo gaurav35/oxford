@@ -9,6 +9,8 @@ return array(
         'Standard',
         'Student',
         'About',
+        'Contact',
+        'Events',
     ),
 
     // These are various options for the listeners attached to the ModuleManager
